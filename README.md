@@ -1,6 +1,4 @@
-![alt text](https://avatars.githubusercontent.com/u/66464086?s=200&v=4)
-
-# APi Hope
+# APi Feira
 
 O micro-serviço `api-hope` tem a responsabilidade de facilitar a criação e a implementação de um projeto inicial.
 
