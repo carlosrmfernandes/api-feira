@@ -11,6 +11,11 @@ class Product extends Model
         'name', 'description', 'image', 'user_id','price'
     ];
     protected $visible = [
-        'id', 'name', 'description', 'image', 'user_id','price'
+        'id', 'name', 'description', 'image', 'user_id','price','favorite'
     ];
+    
+    public function favorite()
+    {
+        return $this->hasMany(Favorite::class, 'product_id','id');
+    }
 }

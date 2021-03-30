@@ -15,9 +15,9 @@ class ProductServiceAll
         $this->productRepository = $productRepository;
     }
 
-    public function all($status)
+    public function all($status,$numberPaginator)
     {        
-        return $this->productRepository->all($status);
+        return $this->productRepository->all($status,$numberPaginator);
     }
 
 }

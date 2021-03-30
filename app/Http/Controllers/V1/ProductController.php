@@ -37,9 +37,9 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($status=null)
+    public function index($status=null,$numberPaginator=null)
     {           
-        $product = $this->productServiceAll->all($status);
+        $product = $this->productServiceAll->all($status,$numberPaginator);
 
         return response()->json(['data' => $product]);
     }

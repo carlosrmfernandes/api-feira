@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Service\V1\WishList\WishListServiceRegistration;
 use App\Service\V1\WishList\WishListServiceShow;
 use App\Http\Controllers\Controller;
+use App\Service\V1\WishList\WishListServiceAll;
 
 
 class WishListController extends Controller
@@ -13,15 +14,18 @@ class WishListController extends Controller
 
     protected $wishListServiceRegistration;    
     protected $wishListServiceShow;
+    protected $wishListServiceAll;
 
 
     public function __construct(
         WishListServiceRegistration $wishListServiceRegistration,
-        WishListServiceShow $wishListServiceShow        
+        WishListServiceShow $wishListServiceShow,        
+        WishListServiceAll  $wishListServiceAll        
 
     ) {
         $this->wishListServiceRegistration = $wishListServiceRegistration;
         $this->wishListServiceShow = $wishListServiceShow;        
+        $this->wishListServiceAll = $wishListServiceAll;        
     }
 
     /**
@@ -31,7 +35,9 @@ class WishListController extends Controller
      */
     public function index()
     {
-        //
+        $wishList = $this->wishListServiceAll->all();
+
+        return response()->json(['data' => $wishList]);
     }
 
     /**
@@ -42,9 +48,9 @@ class WishListController extends Controller
      */
     public function store(Request $request)
     {
-        $user = $this->wishListServiceRegistration->store($request);
+        $wishList = $this->wishListServiceRegistration->store($request);
 
-        return response()->json(['data' => $user]);
+        return response()->json(['data' => $wishList]);
     }
 
     /**
@@ -55,9 +61,9 @@ class WishListController extends Controller
      */
     public function show($id)
     {
-        $user = $this->wishListServiceShow->show($id);
+        $wishList = $this->wishListServiceShow->show($id);
 
-        return response()->json(['data' => $user]);
+        return response()->json(['data' => $wishList]);
     }
 
     /**

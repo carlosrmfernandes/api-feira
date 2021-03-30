@@ -13,6 +13,14 @@ class WishListRepository extends BaseRepository
     {
         parent::__construct($wishList);
     }
+    
+    public function all(): object
+    {                               
+        return (object) $this->obj
+                        ->with('product')
+                        ->where('user_id',auth()->user()->id)
+                        ->get();
+    }
 
     public function save(array $attributes): object
     {

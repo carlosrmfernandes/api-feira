@@ -13,22 +13,21 @@ class ProductRepository extends BaseRepository
     {
         parent::__construct($product);
     }
-    public function all($status=null): object
-    {               
+    public function all($status=null,$numberPaginator=null): object
+    {   $product=null;            
         if($status=='home'){
-          return (object) $this->obj                        
-                        ->get();  
-        }
-        
-        if($status=='logged_home'){
-          return (object) $this->obj
+          $product= $this->obj                        
+                        ->paginate($numberPaginator?$numberPaginator:10);  
+        }elseif($status=='logged_home'){
+          $product= $this->obj
                         ->where('user_id','<>',auth()->user()->id)
-                        ->get();  
-        }
-        
-        return (object) $this->obj
+                        ->paginate($numberPaginator?$numberPaginator:10);  
+        }else{
+            $product= $this->obj
                         ->where('user_id',auth()->user()->id)
-                        ->get();
+                        ->paginate($numberPaginator?$numberPaginator:10);
+        }        
+        return (object) $product;  
     }
     public function save(array $attributes): object
     {
@@ -65,8 +64,9 @@ class ProductRepository extends BaseRepository
     public function show(int $id): object
     {
         return (object) $this->obj
+                        ->with(['favorite'])                        
                         ->where('id', $id)
-                        ->first();
+                        ->get();
     }
 
 }
