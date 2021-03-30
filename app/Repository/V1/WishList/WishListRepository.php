@@ -2,25 +2,28 @@
 
 namespace App\Repository\V1\WishList;
 
-use App\Models\User;
+use App\Models\WishList;
 use App\Repository\V1\BaseRepository;
 use Illuminate\Support\Facades\DB;
 
 class WishListRepository extends BaseRepository
 {
 
-    public function __construct(User $user)
+    public function __construct(WishList $wishList)
     {
-        parent::__construct($user);
+        parent::__construct($wishList);
     }
 
     public function save(array $attributes): object
     {
         DB::beginTransaction();
         try {
-            $user = $this->obj->create($attributes);
+            $wishList = $this->obj->updateOrCreate([
+             'user_id'=>auth()->user()->id,
+             'product_id'=>$attributes['product_id']  
+            ], $attributes);
             DB::commit();
-            return $user;
+            return $wishList;
         } catch (Exception $ex) {
             DB::rollback();
             return $ex->getMessage();
@@ -31,24 +34,25 @@ class WishListRepository extends BaseRepository
     {
         DB::beginTransaction();
         try {
-            $user = $this->obj->find($id);
-            if ($user) {
-                $user->updateOrCreate([
+            $wishList = $this->obj->find($id);
+            if ($wishList) {
+                $wishList->updateOrCreate([
                     'id' => $id,
                         ], $attributes);
             }
 
             DB::commit();
-            return (object) $user;
+            return (object) $wishList;
         } catch (Exception $ex) {
             DB::rollback();
             return $ex->getMessage();
         }
-    }    
+    }
 
     public function show(int $id): object
     {
         return (object) $this->obj
+                        ->with('product')
                         ->where('id', $id)
                         ->first();
     }

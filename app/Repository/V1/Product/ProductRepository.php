@@ -2,25 +2,25 @@
 
 namespace App\Repository\V1\Product;
 
-use App\Models\User;
+use App\Models\Product;
 use App\Repository\V1\BaseRepository;
 use Illuminate\Support\Facades\DB;
 
 class ProductRepository extends BaseRepository
 {
 
-    public function __construct(User $user)
+    public function __construct(Product $product)
     {
-        parent::__construct($user);
+        parent::__construct($product);
     }
 
     public function save(array $attributes): object
     {
         DB::beginTransaction();
         try {
-            $user = $this->obj->create($attributes);
+            $product = $this->obj->create($attributes);
             DB::commit();
-            return $user;
+            return $product;
         } catch (Exception $ex) {
             DB::rollback();
             return $ex->getMessage();
@@ -31,15 +31,15 @@ class ProductRepository extends BaseRepository
     {
         DB::beginTransaction();
         try {
-            $user = $this->obj->find($id);
-            if ($user) {
-                $user->updateOrCreate([
+            $product = $this->obj->find($id);
+            if ($product) {
+                $product->updateOrCreate([
                     'id' => $id,
                         ], $attributes);
             }
 
             DB::commit();
-            return (object) $user;
+            return (object) $product;
         } catch (Exception $ex) {
             DB::rollback();
             return $ex->getMessage();

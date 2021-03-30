@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\V1;
 
 use Illuminate\Http\Request;
-use App\Service\V1\Favorite\FavoriteServiceRegistration;
-use App\Service\V1\Product\FavoriteServiceShow;
+use App\Service\V1\WishList\WishListServiceRegistration;
+use App\Service\V1\WishList\WishListServiceShow;
 use App\Http\Controllers\Controller;
 
 
@@ -16,12 +16,12 @@ class WishListController extends Controller
 
 
     public function __construct(
-        FavoriteServiceRegistration $wishListServiceRegistration,
-        FavoriteServiceShow $wishListServiceShow        
+        WishListServiceRegistration $wishListServiceRegistration,
+        WishListServiceShow $wishListServiceShow        
 
     ) {
-        $this->favoriteServiceRegistration = $favoriteServiceRegistration;
-        $this->favoriteServiceShow = $favoriteServiceShow;        
+        $this->wishListServiceRegistration = $wishListServiceRegistration;
+        $this->wishListServiceShow = $wishListServiceShow;        
     }
 
     /**
@@ -42,7 +42,7 @@ class WishListController extends Controller
      */
     public function store(Request $request)
     {
-        $user = $this->favoriteServiceRegistration->store($request);
+        $user = $this->wishListServiceRegistration->store($request);
 
         return response()->json(['data' => $user]);
     }
@@ -55,7 +55,7 @@ class WishListController extends Controller
      */
     public function show($id)
     {
-        $user = $this->favoriteServiceShow->show($id);
+        $user = $this->wishListServiceShow->show($id);
 
         return response()->json(['data' => $user]);
     }

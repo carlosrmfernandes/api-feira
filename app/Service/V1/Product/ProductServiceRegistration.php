@@ -3,6 +3,7 @@
 namespace App\Service\V1\Product;
 
 use App\Repository\V1\Product\ProductRepository;
+use App\Repository\V1\User\UserRepository;
 use Validator;
 
 class ProductServiceRegistration
@@ -14,7 +15,8 @@ class ProductServiceRegistration
     protected $userRepository;
 
     public function __construct(
-        ProductRepository $productRepository
+        ProductRepository $productRepository,
+        UserRepository $userRepository
     )
     {
         $this->productRepository = $productRepository;
@@ -25,11 +27,11 @@ class ProductServiceRegistration
     {
         $attributes = null;
         if (is_object($request)) {
-            $attributes = $request->all();
+            $attributes = $request->all();            
         } else {
             $attributes = $request;
         }
-
+         $attributes['user_id']= auth()->user()->id;
          $validator = Validator::make($attributes, $this->rules());
 
          if ($validator->fails()) {

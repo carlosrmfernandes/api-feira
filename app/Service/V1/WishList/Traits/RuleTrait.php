@@ -12,15 +12,14 @@
  * @author carlosfernandes
  */
 
-namespace App\Service\V1\User\Traits;
+namespace App\Service\V1\WishList\Traits;
 trait RuleTrait
 {
 
     public function rules($id = null)
     {
         return [
-            'name' => 'required|string|max:255',
-            'description' => 'required|boolean|max:1',
+            'product_id' => 'required|integer|max:255',            
             'user_id' => 'required|integer|max:255',
         ];
     }

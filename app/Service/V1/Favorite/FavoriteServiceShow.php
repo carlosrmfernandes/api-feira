@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Service\V1\Product;
+namespace App\Service\V1\Favorite;
 
-use App\Repository\V1\Product\FavoriteRepository;
+use App\Repository\V1\Favorite\FavoriteRepository;
 
 class FavoriteServiceShow
 {

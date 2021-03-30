@@ -4,11 +4,11 @@ namespace App\Http\Controllers\V1;
 
 use Illuminate\Http\Request;
 use App\Service\V1\Favorite\FavoriteServiceRegistration;
-use App\Service\V1\Product\FavoriteServiceShow;
+use App\Service\V1\Favorite\FavoriteServiceShow;
 use App\Http\Controllers\Controller;
 
 
-class ProductController extends Controller
+class FavoriteController extends Controller
 {
 
     protected $favoriteServiceRegistration;    

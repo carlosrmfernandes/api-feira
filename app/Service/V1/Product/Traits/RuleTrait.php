@@ -12,7 +12,7 @@
  * @author carlosfernandes
  */
 
-namespace App\Service\V1\User\Traits;
+namespace App\Service\V1\Product\Traits;
 trait RuleTrait
 {
 
@@ -20,8 +20,9 @@ trait RuleTrait
     {
         return [
             'name' => 'required|string|max:255',
-            'description' => 'required|boolean|max:1',
+            'description' => 'required|string|max:255',
             'user_id' => 'required|integer|max:255',
+            'price' => 'required',
         ];
     }
 

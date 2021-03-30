@@ -24,6 +24,19 @@ Route::group(['middleware' => ['apiJwt', 'checkUserType'], 'prefix' => 'auth',],
         Route::post('user-update/{id}', 'V1\\UserController@update');
         Route::get('user-show/{id}', 'V1\\UserController@show');
     });
+    
+    //Products
+    Route::post('register-product', 'V1\\ProductController@store');
+    Route::get('product-show/{id}', 'V1\\ProductController@show');
+    Route::post('product-update/{id}', 'V1\\ProductController@update');
+    
+    //Favorite
+    Route::post('register-favorite', 'V1\\FavoriteController@store');
+    Route::get('favorite-show/{id}', 'V1\\FavoriteController@show');    
+    
+    //Wish List
+    Route::post('register-wish-list', 'V1\\WishListController@store');
+    Route::get('wish-list-show/{id}', 'V1\\WishListController@show');    
 
     //User Type
     Route::middleware(['blockRoute'])->group(function () {

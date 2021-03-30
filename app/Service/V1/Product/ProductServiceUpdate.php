@@ -26,11 +26,16 @@ class ProductServiceUpdate
 
     public function update(int $id, Request $request)
     {
-
+        $attributes = $request->all();
+        $attributes['user_id']= auth()->user()->id;
         $validator = Validator::make($attributes, $this->rules($id));
-
+        
         if ($validator->fails()) {
             return $validator->errors();
+        }
+        
+        if (!get_object_vars(($this->productRepository->show($id)))) {
+            return "product invalid";
         }
 
         if (!get_object_vars(($this->userRepository->show($attributes['user_id'])))) {
