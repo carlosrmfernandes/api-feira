@@ -5,6 +5,7 @@ namespace App\Http\Controllers\V1;
 use Illuminate\Http\Request;
 use App\Service\V1\Product\ProductServiceRegistration;
 use App\Service\V1\Product\ProductServiceShow;
+use App\Service\V1\Product\ProductServiceAll;
 use App\Http\Controllers\Controller;
 use App\Service\V1\Product\ProductServiceUpdate;
 
@@ -15,17 +16,20 @@ class ProductController extends Controller
     protected $ProductServiceRegistration;
     protected $ProductServiceUpdate;
     protected $ProductServiceShow;
+    protected $productServiceAll;
 
 
     public function __construct(
         ProductServiceRegistration $productServiceRegistration,
         ProductServiceUpdate $productServiceUpdate,
-        ProductServiceShow $productServiceShow
+        ProductServiceShow $productServiceShow,
+        ProductServiceAll $productServiceAll
 
     ) {
         $this->productServiceShow = $productServiceShow;
         $this->productServiceUpdate = $productServiceUpdate;
         $this->productServiceRegistration = $productServiceRegistration;
+        $this->productServiceAll = $productServiceAll;
     }
 
     /**
@@ -35,7 +39,9 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        $product = $this->productServiceAll->all();
+
+        return response()->json(['data' => $product]);
     }
 
     /**
@@ -46,9 +52,9 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        $user = $this->productServiceRegistration->store($request);
+        $product = $this->productServiceRegistration->store($request);
 
-        return response()->json(['data' => $user]);
+        return response()->json(['data' => $product]);
     }
 
     /**
@@ -59,9 +65,9 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        $user = $this->productServiceShow->show($id);
+        $product = $this->productServiceShow->show($id);
 
-        return response()->json(['data' => $user]);
+        return response()->json(['data' => $product]);
     }
 
     /**
@@ -74,9 +80,9 @@ class ProductController extends Controller
     public function update(int $id, Request $request)
     {
 
-        $user = $this->productServiceUpdate->update($id, $request);
+        $product = $this->productServiceUpdate->update($id, $request);
 
-        return response()->json(['data' => $user]);
+        return response()->json(['data' => $product]);
     }
 
     /**

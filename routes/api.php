@@ -29,6 +29,7 @@ Route::group(['middleware' => ['apiJwt', 'checkUserType'], 'prefix' => 'auth',],
     Route::post('register-product', 'V1\\ProductController@store');
     Route::get('product-show/{id}', 'V1\\ProductController@show');
     Route::post('product-update/{id}', 'V1\\ProductController@update');
+    Route::get('product-all', 'V1\\ProductController@index');
     
     //Favorite
     Route::post('register-favorite', 'V1\\FavoriteController@store');

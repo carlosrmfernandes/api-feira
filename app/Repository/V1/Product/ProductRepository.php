@@ -13,7 +13,11 @@ class ProductRepository extends BaseRepository
     {
         parent::__construct($product);
     }
-
+    public function all(): object
+    {
+        return (object) $this->obj                        
+                        ->get();
+    }
     public function save(array $attributes): object
     {
         DB::beginTransaction();
