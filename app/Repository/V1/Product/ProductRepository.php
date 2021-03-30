@@ -13,9 +13,21 @@ class ProductRepository extends BaseRepository
     {
         parent::__construct($product);
     }
-    public function all(): object
-    {
-        return (object) $this->obj                        
+    public function all($status=null): object
+    {               
+        if($status=='home'){
+          return (object) $this->obj                        
+                        ->get();  
+        }
+        
+        if($status=='logged_home'){
+          return (object) $this->obj
+                        ->where('user_id','<>',auth()->user()->id)
+                        ->get();  
+        }
+        
+        return (object) $this->obj
+                        ->where('user_id',auth()->user()->id)
                         ->get();
     }
     public function save(array $attributes): object

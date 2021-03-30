@@ -29,7 +29,7 @@ Route::group(['middleware' => ['apiJwt', 'checkUserType'], 'prefix' => 'auth',],
     Route::post('register-product', 'V1\\ProductController@store');
     Route::get('product-show/{id}', 'V1\\ProductController@show');
     Route::post('product-update/{id}', 'V1\\ProductController@update');
-    Route::get('product-all', 'V1\\ProductController@index');
+    Route::get('product-all/{status?}', 'V1\\ProductController@index');
     
     //Favorite
     Route::post('register-favorite', 'V1\\FavoriteController@store');
@@ -54,4 +54,5 @@ Route::group(['prefix' => ''], function ($router) {
     Route::post('register-user', 'V1\\UserController@store');
     Route::post('login', 'V1\\AuthController@login');
     Route::get('example-weather/{id}', 'V1\\ExampleWeatherCotroller@show');
+    Route::get('product-all/{status}', 'V1\\ProductController@index');
 });
