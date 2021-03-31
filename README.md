@@ -51,16 +51,11 @@ S O L I D
 ```php
 Laravel
 ```
-## Base de dados para execução das notificações 
-
-```php
-Redis
-```
 
 ## Pré-requisitos
 
 ```php
-Criar um diretório na are trabalho chamado Hope
+Criar um diretório na are trabalho chamado Api-Feira
 Clonar o projecto dentro desse diretório
 ```
 
@@ -103,7 +98,7 @@ DB_USERNAME=postgres
 DB_PASSWORD=root
 ```
 
-Acessar o container onde esta à aplicacão e dentro do diretório do projecto executar os seguinte comando
+Acessar o container onde esta à aplicacão entra no diretório do projecto com ```php cd api ``` executar os seguinte comando
 
 ```php
 php artisan config:clear
@@ -117,20 +112,13 @@ composer dump-autoload
 php artisan migrate
 ```
 
-## Execução das queue 
-
-Acessar o container onde esta à aplicacão e dentro do diretório do projecto executar os seguinte comando
-
-Execute o seguinte comando 
-
 ```php
-php artisan queue:work
+php artisan storage:link
 ```
-
 
 ## Teste Unintário  
 
-Acessar o container onde esta à aplicacão e dentro do diretório do projecto execute o seguinte comando para executar os testes
+Acessar o container onde esta à aplicacão entra no diretório do projecto com ```php cd api ``` executar os seguinte comando para executar os testes
 
 ```php
 vendor/bin/phpunit
@@ -148,10 +136,7 @@ php artisan test
 [https://www.getpostman.com/downloads/](https://www.getpostman.com/downloads/)
 
 ## Chamadas da API	
-Documentação: 
-
-## Link da collections 
-Collections:
+Documentação: https://www.getpostman.com/collections/5990791bd76325a8273e
 
 ## Erros
 
