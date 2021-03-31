@@ -51,7 +51,7 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {        
         $product = $this->productServiceRegistration->store($request);
 
         return response()->json(['data' => $product]);

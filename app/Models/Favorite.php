@@ -15,7 +15,7 @@ class Favorite extends Model
         'user_id', 'product_id'
     ];
     protected $visible = [
-        'id', 'user_id', 'product_id','product'
+        'id', 'user_id', 'product_id','product','total_favorite'
     ];
     
     public function product()

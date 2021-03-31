@@ -62,11 +62,18 @@ class ProductRepository extends BaseRepository
     }
 
     public function show(int $id): object
-    {
+    {        
         return (object) $this->obj
-                        ->with(['favorite'])                        
+                        ->with(['favorite'=>function($query){
+                            $query->select([
+                                'product_id',
+                                DB::raw('count(product_id) as total_favorite')
+                            ])->groupBy([
+                                 'product_id' 
+                            ]);
+                        }])
                         ->where('id', $id)
-                        ->get();
+                        ->first();
     }
 
 }

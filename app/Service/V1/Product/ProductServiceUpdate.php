@@ -26,6 +26,7 @@ class ProductServiceUpdate
 
     public function update(int $id, Request $request)
     {
+        $attachment = null;        
         $attributes = $request->all();
         $attributes['user_id']= auth()->user()->id;
         $validator = Validator::make($attributes, $this->rules($id));
@@ -33,6 +34,11 @@ class ProductServiceUpdate
         if ($validator->fails()) {
             return $validator->errors();
         }
+        $files = $request->file('image');        
+        if ($request->hasFile('image')) {            
+             $attachment = $this->uploadImg($files);
+        }        
+        $attributes['image']= $attachment;
         
         if (!get_object_vars(($this->productRepository->show($id)))) {
             return "product invalid";
@@ -43,6 +49,11 @@ class ProductServiceUpdate
         }
         
         return $this->productRepository->update($id, $attributes);
+    }
+    
+    public function uploadImg($file)
+    {
+        return $path = $file->store('imagens', 'public');            
     }
 
 }

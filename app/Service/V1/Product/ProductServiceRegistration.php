@@ -26,12 +26,18 @@ class ProductServiceRegistration
     public function store($request)
     {
         $attributes = null;
+        $attachment = null;        
         if (is_object($request)) {
             $attributes = $request->all();            
         } else {
             $attributes = $request;
         }
+        $files = $request->file('image');        
+        if ($request->hasFile('image')) {
+             $attachment = $this->uploadImg($files);
+        }        
          $attributes['user_id']= auth()->user()->id;
+         $attributes['image']= $attachment;
          $validator = Validator::make($attributes, $this->rules());
 
          if ($validator->fails()) {
@@ -44,6 +50,10 @@ class ProductServiceRegistration
 
         $product = $this->productRepository->save($attributes);
         return $product?$product:'unidentified product';
+    }
+    public function uploadImg($file)
+    {
+        return $path = $file->store('imagens', 'public');            
     }
 
 }
